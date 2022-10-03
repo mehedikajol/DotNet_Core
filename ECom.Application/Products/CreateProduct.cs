@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ECom.Application.Products
+namespace ECom.Application.CreateProducts
 {
     public class CreateProduct
     {
@@ -16,15 +16,23 @@ namespace ECom.Application.Products
             _context = context;
         }
 
-        public void Do(int ProductId, string Name, string Description, decimal Price)
+        public async Task DoAsync(ProductViewModel product)
         {
             _context.Products.Add(new Product
             {
-                ProductId = ProductId,
-                Name = Name,
-                Description = Description,
-                Price = Price
+                Name = product.Name,
+                Description = product.Description,
+                Price = product.Price
             });
+
+            await _context.SaveChangesAsync();
         }
+    }
+
+    public class ProductViewModel
+    {
+        public string Name { get; set; }
+        public string Description { get; set; }
+        public decimal Price { get; set; }
     }
 }

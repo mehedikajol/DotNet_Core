@@ -16,5 +16,22 @@ namespace ECom.Database
             : base(options) { }
 
         public DbSet<Product> Products { get; set; }
+        public DbSet<Stock> Stocks { get; set; }
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<OrderProduct> OrderProducts { get; set; }
+
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
+
+            // Configuring composite key in OrderProducts table
+            builder.Entity<OrderProduct>()
+                .HasKey(x => new
+                {
+                    x.ProductId,
+                    x.OrderId
+                });
+        }
     }
 }
