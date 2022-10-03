@@ -3,11 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.3.32922.545
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ECom.UI", "ECom.UI\ECom.UI.csproj", "{DB56872C-4B24-4E7D-B6EF-85ABFF2A078C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ECom.UI", "ECom.UI\ECom.UI.csproj", "{DB56872C-4B24-4E7D-B6EF-85ABFF2A078C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ECom.Domain", "ECom.Domain\ECom.Domain.csproj", "{80B875BC-7474-4575-B720-BD714EAA9109}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ECom.Domain", "ECom.Domain\ECom.Domain.csproj", "{80B875BC-7474-4575-B720-BD714EAA9109}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ECom.Application", "ECom.Application\ECom.Application.csproj", "{E91D505F-CD73-4AAF-A77C-A6DE6F658E1A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ECom.Application", "ECom.Application\ECom.Application.csproj", "{E91D505F-CD73-4AAF-A77C-A6DE6F658E1A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ECom.Database", "ECom.Database\ECom.Database.csproj", "{7A7E028E-241A-4C77-94DA-7CF82BE64FD3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{E91D505F-CD73-4AAF-A77C-A6DE6F658E1A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E91D505F-CD73-4AAF-A77C-A6DE6F658E1A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E91D505F-CD73-4AAF-A77C-A6DE6F658E1A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7A7E028E-241A-4C77-94DA-7CF82BE64FD3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7A7E028E-241A-4C77-94DA-7CF82BE64FD3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7A7E028E-241A-4C77-94DA-7CF82BE64FD3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7A7E028E-241A-4C77-94DA-7CF82BE64FD3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
