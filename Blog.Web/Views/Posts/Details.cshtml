@@ -1,37 +1,89 @@
-﻿@model Blog.Web.Models.Post
+﻿@model Post
 
 @{
     ViewData["Title"] = "Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Details</h1>
+<section class="s-content">
 
-<div>
-    <h4>Post</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Title)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Title)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Body)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Body)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CreatedTime)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CreatedTime)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.PostId">Edit</a> |
-    <a asp-action="Index" asp-controller="Home">Back to List</a>
-</div>
+    <div class="row">
+        <div class="column large-12">
+
+            <article class="s-content__entry format-standard">
+
+                <div class="s-content__media">
+                    <div class="s-content__post-thumb">
+                        <img 
+                            src="~/calvin/images/thumbs/single/single-post-1050.jpg"
+                             srcset="~/calvin/images/thumbs/single/single-post-2100.jpg 2100w,
+                                         ~/calvin/images/thumbs/single/single-post-1050.jpg 1050w,
+                                         ~/calvin/images/thumbs/single/single-post-525.jpg 525w" sizes="(max-width: 2100px) 100vw, 2100px" alt="">
+                    </div>
+                </div> <!-- end s-content__media -->
+
+                <div class="s-content__entry-header">
+                    <h1 class="s-content__title s-content__title--post">@Model.Title</h1>
+                </div> <!-- end s-content__entry-header -->
+
+                <div class="s-content__primary">
+
+                    <div class="s-content__entry-content" style="text-align: justify">
+
+                        @Model.Body
+
+                    </div> <!-- end s-entry__entry-content -->
+
+                    <div class="s-content__entry-meta">
+                        <div class="entry-author meta-blk">
+                            <div class="author-avatar">
+                                <img class="avatar" src="~/calvin/images/avatars/user-06.jpg" alt="">
+                            </div>
+                            <div class="byline">
+                                <span class="bytext">Posted By</span>
+                                <a href="#0">John Doe</a>
+                            </div>
+                        </div>
+                        <div class="meta-bottom">
+                            <div class="entry-cat-links meta-blk">
+                                <div class="cat-links">
+                                    <span>In</span>
+                                    <a href="#0">Frontend</a>
+                                    <a href="#0">Design</a>
+                                    <a href="#0">Work</a>
+                                </div>
+                                <span>On</span>
+                                @Model.CreatedTime.ToString()
+                            </div>
+                            <div class="entry-tags meta-blk">
+                                <span class="tagtext">Tags</span>
+                                <a href="#">orci</a>
+                                <a href="#">lectus</a>
+                                <a href="#">varius</a>
+                                <a href="#">turpis</a>
+                            </div>
+                        </div>
+                    </div> <!-- s-content__entry-meta -->
+
+                    <div class="s-content__pagenav">
+                        <div class="prev-nav">
+                            <a href="#" rel="prev">
+                                <span>Previous</span>
+                                Tips on Minimalist Design
+                            </a>
+                        </div>
+                        <div class="next-nav">
+                            <a href="#" rel="next">
+                                <span>Next</span>
+                                A Practical Guide to a Minimalist Lifestyle.
+                            </a>
+                        </div>
+                    </div>
+
+                </div> <!-- end s-content__primary -->
+            </article> <!-- end entry -->
+
+        </div> <!-- end column -->
+    </div> <!-- end row -->
+
+</section> <!-- end s-content -->
