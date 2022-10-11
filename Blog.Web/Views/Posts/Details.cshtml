@@ -7,6 +7,8 @@
 
 <section class="s-content">
 
+
+
     <div class="row">
         <div class="column large-12">
 
@@ -14,11 +16,19 @@
 
                 <div class="s-content__media">
                     <div class="s-content__post-thumb">
-                        <img 
-                            src="~/calvin/images/thumbs/single/single-post-1050.jpg"
+                        @if (!string.IsNullOrEmpty(Model.ImageName))
+                        {
+                            var imagePath = $"/Image/{Model.ImageName}";
+                            <img src="@imagePath" alt="">
+                        }
+                        else
+                        {
+                            <img src="~/calvin/images/thumbs/single/single-post-1050.jpg"
                              srcset="~/calvin/images/thumbs/single/single-post-2100.jpg 2100w,
                                          ~/calvin/images/thumbs/single/single-post-1050.jpg 1050w,
                                          ~/calvin/images/thumbs/single/single-post-525.jpg 525w" sizes="(max-width: 2100px) 100vw, 2100px" alt="">
+                        }
+
                     </div>
                 </div> <!-- end s-content__media -->
 

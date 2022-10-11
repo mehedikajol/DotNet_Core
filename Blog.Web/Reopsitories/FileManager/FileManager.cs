@@ -15,6 +15,11 @@ namespace Blog.Web.Reopsitories.FileManager
             _imagePath = config["Path:ImagesPath"];
         }
 
+        public FileStream imageStream(string imageName)
+        {
+            return new FileStream(Path.Combine(_imagePath, imageName), FileMode.Open, FileAccess.Read);
+        }
+
         public async Task<string> SaveImage(IFormFile image)
         {
             try

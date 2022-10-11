@@ -9,6 +9,7 @@ using Blog.Web.Data;
 using Blog.Web.Models;
 using Blog.Web.ViewModels;
 using Blog.Web.Reopsitories.FileManager;
+using System.Security.Permissions;
 
 namespace Blog.Web.Controllers
 {
@@ -60,7 +61,7 @@ namespace Blog.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(PostViewModel postVM)
         {
-            
+
             if (ModelState.IsValid)
             {
                 var post = new Post
@@ -162,6 +163,13 @@ namespace Blog.Web.Controllers
         private bool PostExists(int id)
         {
             return _context.Posts.Any(e => e.PostId == id);
+        }
+
+        [HttpGet("/Image/{image}")]
+        public IActionResult Image(string image)
+        {
+            var mime = image.Substring(image.LastIndexOf('.') + 1);
+            return new FileStreamResult(_fileManager.imageStream(image), $"image/{mime}");
         }
     }
 }
