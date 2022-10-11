@@ -22,12 +22,14 @@ namespace Blog.Web.Controllers
         // GET: Posts
         public async Task<IActionResult> Index()
         {
+            ViewBag.Class = true;
             return View(await _context.Posts.ToListAsync());
         }
 
         // GET: Posts/Details/5
         public async Task<IActionResult> Details(int? id)
         {
+            ViewBag.Class = true;
             if (id == null)
             {
                 return NotFound();
@@ -46,6 +48,7 @@ namespace Blog.Web.Controllers
         // GET: Posts/Create
         public IActionResult Create()
         {
+            ViewBag.Class = true;
             return View();
         }
 
@@ -69,6 +72,7 @@ namespace Blog.Web.Controllers
         // GET: Posts/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
+            ViewBag.Class = true;
             if (id == null)
             {
                 return NotFound();
@@ -120,6 +124,7 @@ namespace Blog.Web.Controllers
         // GET: Posts/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
+            ViewBag.Class = true;
             if (id == null)
             {
                 return NotFound();

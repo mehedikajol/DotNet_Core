@@ -24,16 +24,19 @@ namespace Blog.Web.Controllers
 
         public async Task<IActionResult> IndexAsync()
         {
+            ViewBag.Class = true;
             return View(await _context.Posts.ToListAsync());
         }
 
         public IActionResult Edit()
         {
+            ViewBag.Class = true;
             return View();
         }
 
         public IActionResult Privacy()
         {
+            ViewBag.Class = true;
             return View();
         }
 
