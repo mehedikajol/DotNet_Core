@@ -1,4 +1,4 @@
-﻿@model Blog.Web.Models.Post
+﻿@model PostViewModel
 
 @{
     ViewData["Title"] = "Create Post";
@@ -9,7 +9,7 @@
 <hr />
 
 <div style="margin: auto; width: 80%;">
-    <form asp-action="Create">
+    <form asp-action="Create" enctype="multipart/form-data">
         <div asp-validation-summary="ModelOnly"></div>
         <div>
             <label asp-for="Title"></label>
@@ -20,6 +20,10 @@
             <label asp-for="Body"></label>
             <textarea asp-for="Body" class="h-full-width" rows="8"></textarea>
             <span asp-validation-for="Body"></span>
+        </div>
+        <div>
+            <label asp-for="Image"></label>
+            <input asp-for="Image" />
         </div>
         <div>
             <input type="submit" class="btn--primary h-full-width" value="Create" />

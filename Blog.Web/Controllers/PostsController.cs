@@ -7,29 +7,31 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Blog.Web.Data;
 using Blog.Web.Models;
+using Blog.Web.ViewModels;
+using Blog.Web.Reopsitories.FileManager;
 
 namespace Blog.Web.Controllers
 {
     public class PostsController : Controller
     {
         private readonly AppDbContext _context;
+        private readonly IFileManager _fileManager;
 
-        public PostsController(AppDbContext context)
+        public PostsController(AppDbContext context, IFileManager fileManager)
         {
             _context = context;
+            _fileManager = fileManager;
         }
 
         // GET: Posts
         public async Task<IActionResult> Index()
         {
-            ViewBag.Class = true;
             return View(await _context.Posts.ToListAsync());
         }
 
         // GET: Posts/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            ViewBag.Class = true;
             if (id == null)
             {
                 return NotFound();
@@ -48,7 +50,6 @@ namespace Blog.Web.Controllers
         // GET: Posts/Create
         public IActionResult Create()
         {
-            ViewBag.Class = true;
             return View();
         }
 
@@ -57,22 +58,30 @@ namespace Blog.Web.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("PostId,Title,Body,CreatedTime")] Post post)
+        public async Task<IActionResult> Create(PostViewModel postVM)
         {
+            
             if (ModelState.IsValid)
             {
-                post.CreatedTime = DateTime.Now;
+                var post = new Post
+                {
+                    Title = postVM.Title,
+                    Body = postVM.Body,
+                    CreatedTime = DateTime.Now,
+
+                    ImageName = await _fileManager.SaveImage(postVM.Image)
+
+                };
                 _context.Add(post);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(post);
+            return View(postVM);
         }
 
         // GET: Posts/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            ViewBag.Class = true;
             if (id == null)
             {
                 return NotFound();
@@ -124,7 +133,6 @@ namespace Blog.Web.Controllers
         // GET: Posts/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            ViewBag.Class = true;
             if (id == null)
             {
                 return NotFound();

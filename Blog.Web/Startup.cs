@@ -1,4 +1,5 @@
 using Blog.Web.Data;
+using Blog.Web.Reopsitories.FileManager;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -9,6 +10,7 @@ using Microsoft.Extensions.Hosting;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization.Formatters;
 using System.Threading.Tasks;
 
 namespace Blog.Web
@@ -30,6 +32,8 @@ namespace Blog.Web
                     Configuration.GetConnectionString("PostConnection")));
 
             services.AddControllersWithViews();
+
+            services.AddTransient<IFileManager, FileManager>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
