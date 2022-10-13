@@ -1,0 +1,22 @@
+﻿@page
+@model IdentityDemo.Areas.Identity.Pages.Claims.IndexModel
+@{
+    ViewData["Title"] = "Claims";
+}
+
+<table class="table table-striped table-bordered">
+    <thead>
+        <tr>
+            <th>Claim Name</th>
+            <th>Claim Value</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var claim in Model.AllClaim){
+            <tr>
+                <td>@claim.Key</td>
+                <td>@claim.Value</td>
+            </tr>
+        }
+    </tbody>
+</table>
