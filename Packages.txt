@@ -1,0 +1,8 @@
+Microsoft.Identity.EntityFrameworkCore
+Microsoft.EntityFrameworkCore
+Microsoft.EntityFrameworkCore.SqlServer
+Microsoft.EntityFrameworkCore.Tools
+Microsoft.EntityFrameworkCore.Design
+Microsoft.Identity.UI
+
+Microsoft.AspNetCore.Identity
