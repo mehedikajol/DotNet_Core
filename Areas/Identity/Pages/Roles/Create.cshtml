@@ -1,0 +1,17 @@
+﻿@page
+@model IdentityDemo.Areas.Identity.Pages.Roles.CreateModel
+@{
+    ViewData["Title"] = "Create Role";
+}
+
+<form method="post">
+    <div class="row">
+        <div class="form-group col-md-6">
+            <label asp-for="Role.Name"></label>
+            <input asp-for="Role.Name" class="form-control mb-2" />
+        </div>
+        <div class="form-group col-md-6">
+            <input type="submit" value="Create" class="btn btn-success" />
+        </div>
+    </div>
+</form>
