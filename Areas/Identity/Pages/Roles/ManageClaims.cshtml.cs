@@ -66,6 +66,11 @@ namespace IdentityDemo.Areas.Identity.Pages.Roles
 
             var Claims = await _roleManager.GetClaimsAsync(role);
 
+            foreach(var claim in Claims)
+            {
+                await _roleManager.RemoveClaimAsync(role, claim);
+            }
+
             foreach(var claim in AllClaims)
             {
                 Claim newClaim = new Claim(claim.Claim, claim.Claim);
@@ -73,16 +78,14 @@ namespace IdentityDemo.Areas.Identity.Pages.Roles
                 {
                     await _roleManager.AddClaimAsync(role, newClaim);
                 }
-                else
-                {
-                    await _roleManager.RemoveClaimAsync(role, newClaim);
-                }
             }
+
             var returnMessage = new
             {
                 IsDone = true,
-                Message = "Can't remove from existing roles!"
+                Message = "Can't update claims for this role!"
             };
+
             return new JsonResult(returnMessage);
         }
     }
