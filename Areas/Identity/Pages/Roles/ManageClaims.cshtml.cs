@@ -24,24 +24,66 @@ namespace IdentityDemo.Areas.Identity.Pages.Roles
 
         [BindProperty]
         public List<ClaimViewModel> AllClaims { get; set; } = new List<ClaimViewModel>();
+        public string RoleId { get; set; }
         //public IEnumerable<Claim> Claims { get; set; }
 
-        public  void OnGet(string Id)
+        public  async Task<IActionResult> OnGetAsync(string Id)
         {
-            foreach(var claim in Constants.ClaimsList.AllClaim)
+            RoleId = Id;
+
+            var role = await _roleManager.FindByIdAsync(Id);
+            var Claims = await _roleManager.GetClaimsAsync(role);
+
+
+            foreach (var claim in Constants.ClaimsList.AllClaim)
             {
+                var index = AllClaims.Count;
                 var newClaim = new ClaimViewModel
                 {
                     Claim = claim.Value,
                     IsSelected = false
                 };
 
+                foreach (var existingClaim in Claims)
+                {
+                    if(existingClaim.Value == claim.Value)
+                    {
+                        newClaim = new ClaimViewModel
+                        {
+                            Claim = claim.Value,
+                            IsSelected = true
+                        };
+                    }
+                }
                 AllClaims.Add(newClaim);
             }
+            return Page();
+        }
 
-            //var role = await _roleManager.FindByIdAsync(Id);
-            //Claims = await _roleManager.GetClaimsAsync(role);
-            //return Page();
+        public async Task<IActionResult> OnPostAssignClaimsAsync(string roleId, List<ClaimViewModel> allClaims)
+        {
+            var role = await _roleManager.FindByIdAsync(roleId);
+
+            var Claims = await _roleManager.GetClaimsAsync(role);
+
+            foreach(var claim in AllClaims)
+            {
+                Claim newClaim = new Claim(claim.Claim, claim.Claim);
+                if(claim.IsSelected == true)
+                {
+                    await _roleManager.AddClaimAsync(role, newClaim);
+                }
+                else
+                {
+                    await _roleManager.RemoveClaimAsync(role, newClaim);
+                }
+            }
+            var returnMessage = new
+            {
+                IsDone = true,
+                Message = "Can't remove from existing roles!"
+            };
+            return new JsonResult(returnMessage);
         }
     }
 }

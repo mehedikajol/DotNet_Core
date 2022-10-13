@@ -4,24 +4,67 @@
     ViewData["Title"] = "Claims";
 }
 
-<form method="post"></form>
-<table class="table table-striped table-bordered">
-    <thead>
-        <tr>
-            <th>Claim Name</th>
-            <th>Permission</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var claim in Model.AllClaims)
-        {
+<form method="post">
+    <input asp-for="RoleId" hidden />
+    <table class="table table-striped table-bordered" id="claimTable">
+        <thead>
             <tr>
-                <td>@claim.Claim</td>
-                <td>
-                    <input asp-for="@claim.IsSelected" class="form-check-input" />
-                </td>
+                <th>Claim Name</th>
+                <th>Permission</th>
             </tr>
+        </thead>
+        <tbody>
+            @foreach (var claim in Model.AllClaims)
+            {
+                var index = Model.AllClaims.IndexOf(claim);
+                <tr>
+                    <td>@claim.Claim</td>
+                    <td>
+                        <input asp-for="@claim.Claim" id="claimName_@index" hidden />
+                        <input id="claimIsSelected_@index" asp-for="@claim.IsSelected" class="form-check-input" />
+                    </td>
+                </tr>
+            }
+
+        </tbody>
+    </table>
+    <button type="button" class="btn btn-primary" id="assignClaims">Assign Claims</button>
+</form>
+
+<script>
+    var roleId = $("#RoleId").val();
+    $("#assignClaims").click(function () {
+        var rowCount = $("#claimTable tbody tr").length;
+        var claims = [];
+
+        for (var i = 0; i < rowCount; i++) {
+            var claimNameId = '#claimName_' + i;
+            var claimSelectedId = '#claimIsSelected_' + i;
+            var isClaimChecked = $(claimSelectedId).is(":checked");
+
+            var ClaimViewModel = {
+                Claim: $(claimNameId).val(),
+                IsSelected: isClaimChecked
+            }
+            claims.push(ClaimViewModel);
         }
 
-    </tbody>
-</table>
+        $.ajax({
+            type: "POST",
+            dataType: "json",
+            url: '@Url.Page("ManageClaims", "AssignClaims")',
+            headers: {
+                RequestVerificationToken: $('input:hidden[name="__RequestVerificationToken"]').val()
+            },
+            data: {
+                RoleId: roleId,
+                AllClaims: claims
+            },
+            success: function (data) {
+                //window.location.reload();
+                window.location.href = "/Identity/Roles/Index/";
+            }
+        });
+    });
+</script>
+
