@@ -13,7 +13,7 @@ namespace IdentityDemo.Areas.Identity.Pages.Claims
 
         public void OnGet()
         {
-            AllClaim = AllClaims.AllClaim;
+            AllClaim = ClaimsList.AllClaim;
         }
     }
 }

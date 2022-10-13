@@ -2,7 +2,7 @@
 
 namespace IdentityDemo.Constants
 {
-    public class AllClaims
+    public class ClaimsList
     {
         public static Dictionary<string, string> AllClaim = new Dictionary<string, string>(){
             { "CanViewProduct", "CanViewProduct" },

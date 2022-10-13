@@ -4,17 +4,22 @@
     ViewData["Title"] = "Claims";
 }
 
+<form method="post"></form>
 <table class="table table-striped table-bordered">
     <thead>
         <tr>
             <th>Claim Name</th>
+            <th>Permission</th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var claim in Model.Claims)
+        @foreach (var claim in Model.AllClaims)
         {
             <tr>
-                <td>@claim.Value</td>
+                <td>@claim.Claim</td>
+                <td>
+                    <input asp-for="@claim.IsSelected" class="form-check-input" />
+                </td>
             </tr>
         }
 

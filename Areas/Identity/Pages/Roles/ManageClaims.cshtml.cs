@@ -1,4 +1,6 @@
 using IdentityDemo.Data;
+using IdentityDemo.ViewModels;
+using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -19,14 +21,27 @@ namespace IdentityDemo.Areas.Identity.Pages.Roles
             _roleManager = roleManager;
             _context = context;
         }
-        
-        public IEnumerable<Claim> Claims { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(string Id)
+        [BindProperty]
+        public List<ClaimViewModel> AllClaims { get; set; } = new List<ClaimViewModel>();
+        //public IEnumerable<Claim> Claims { get; set; }
+
+        public  void OnGet(string Id)
         {
-            var role = await _roleManager.FindByIdAsync(Id);
-            Claims = await _roleManager.GetClaimsAsync(role);
-            return Page();
+            foreach(var claim in Constants.ClaimsList.AllClaim)
+            {
+                var newClaim = new ClaimViewModel
+                {
+                    Claim = claim.Value,
+                    IsSelected = false
+                };
+
+                AllClaims.Add(newClaim);
+            }
+
+            //var role = await _roleManager.FindByIdAsync(Id);
+            //Claims = await _roleManager.GetClaimsAsync(role);
+            //return Page();
         }
     }
 }
