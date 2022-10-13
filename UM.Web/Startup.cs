@@ -42,8 +42,11 @@ namespace UM.Web
                 options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(30);
 
                 options.User.RequireUniqueEmail = true;
+                options.SignIn.RequireConfirmedAccount = true;
             })
-                .AddEntityFrameworkStores<AppDbContext>();
+                .AddDefaultUI()
+                .AddEntityFrameworkStores<AppDbContext>()
+                .AddDefaultTokenProviders();
 
             services.ConfigureApplicationCookie(options =>
             {
@@ -74,6 +77,7 @@ namespace UM.Web
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
