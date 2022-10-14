@@ -1,0 +1,42 @@
+﻿@page
+@model CUManager.Web.Areas.AdminPanel.Pages.Users.CreateModel
+@{
+    ViewData["Title"] = "Create";
+}
+<form method="post">
+    <div class="card card-primary">
+        <div class="card-header">
+            <h3 class="card-title">Application User Create Form</h3>
+        </div>
+
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="card-body">
+            <div class="row">
+                <div class="form-group col-md-4">
+                    <label>Email</label>
+                    <input asp-for="NewUser.Email" class="form-control">
+                    <span asp-validation-for="NewUser.Email" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-4">
+                    <label>Password</label>
+                    <input asp-for="NewUser.Password" class="form-control">
+                    <span asp-validation-for="NewUser.Password" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-4">
+                    <label>Repeat Password</label>
+                    <input asp-for="NewUser.RepeatPassword" class="form-control">
+                    <span asp-validation-for="NewUser.RepeatPassword" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer">
+            <input type="submit" class="btn btn-primary" value="Create User" />
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    }

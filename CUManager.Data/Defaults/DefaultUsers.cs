@@ -13,6 +13,29 @@ namespace CUManager.Data.Defaults
 {
     public static class DefaultUsers
     {
+        /*
+        public static async Task SeedBasicUserAsync(
+           UserManager<IdentityUser> userManager,
+           RoleManager<IdentityRole> roleManager)
+        {
+            var defaultUser = new IdentityUser
+            {
+                UserName = "basic@ums.com",
+                Email = "basic@ums.com",
+                EmailConfirmed = true
+            };
+            if (userManager.Users.All(u => u.Id != defaultUser.Id))
+            {
+                var user = await userManager.FindByEmailAsync(defaultUser.Email);
+                if (user == null)
+                {
+                    await userManager.CreateAsync(defaultUser, "P@ssw0rd");
+                    await userManager.AddToRoleAsync(defaultUser, InitialRole.Basic.ToString());
+                }
+            }
+        }
+        */
+
         public static async Task SeedSuperAdminAsync(
             UserManager<IdentityUser> userManager,
             RoleManager<IdentityRole> roleManager)
