@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -24,6 +25,19 @@ namespace CUManager.Data.Helpers
             public const string PostEdit = "Permissions.Posts.Edit";
             public const string PostCreate = "Permissions.Posts.Create";
             public const string PostDelete = "Permissions.Posts.Delete";
+
+            public static List<string> GetPermissionList()
+            {
+                Type t = typeof(AllPermissions);
+                FieldInfo[] fields = t.GetFields(BindingFlags.Static | BindingFlags.Public);
+
+                var tt = new List<string>();
+                foreach (FieldInfo fi in fields)
+                {
+                    tt.Add(fi.GetValue(null).ToString());
+                }
+                return tt;
+            }
         }
     }
 }

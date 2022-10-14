@@ -1,5 +1,9 @@
+using CUManager.Constants;
+using CUManager.Data.Defaults;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using System;
@@ -11,9 +15,29 @@ namespace CUManager.Web
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public async static Task Main(string[] args)
         {
-            CreateHostBuilder(args).Build().Run();
+            var host = CreateHostBuilder(args).Build();
+            using(var scope = host.Services.CreateScope())
+            {
+                var services = scope.ServiceProvider;
+                var loggerFactory = services.GetRequiredService<ILoggerFactory>();
+                var logger = loggerFactory.CreateLogger("app");
+                try
+                {
+                    var userManager = services.GetRequiredService<UserManager<IdentityUser>>();
+                    var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
+                    await DefaultRoles.SeedAsync(userManager, roleManager);
+                    await DefaultUsers.SeedSuperAdminAsync(userManager, roleManager);
+                    logger.LogInformation("Finished Seeding Admin Data");
+                    logger.LogInformation("Application Started!");
+                }
+                catch(Exception ex)
+                {
+                    logger.LogWarning(ex, "An error occured seeding the Database");
+                }
+            }
+            host.Run();
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>

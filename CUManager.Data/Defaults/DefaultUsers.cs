@@ -8,6 +8,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using static CUManager.Data.Helpers.Permissions;
 
 namespace CUManager.Data.Defaults
 {
@@ -61,7 +62,20 @@ namespace CUManager.Data.Defaults
         private async static Task SeedClaimsForSuperAdmin(this RoleManager<IdentityRole> roleManager)
         {
             var adminRole = await roleManager.FindByNameAsync("SuperAdmin");
-            await roleManager.AddPermissionClaims(adminRole, "Posts");
+
+            /*
+            var moduleList = new List<string>();
+            foreach(var module in moduleList)
+            {
+                await roleManager.AddPermissionClaim(adminRole, module);
+            }
+            */
+            var selectedClaims = AllPermissions.GetPermissionList();
+            foreach (var claim in selectedClaims)
+            {
+                await roleManager.AddPermissionClaim(adminRole, claim);
+            }
+            //await roleManager.AddPermissionClaims(adminRole, "Posts");
         }
 
         public static async Task AddPermissionClaims(
