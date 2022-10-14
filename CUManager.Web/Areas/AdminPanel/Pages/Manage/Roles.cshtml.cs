@@ -17,17 +17,20 @@ namespace CUManager.Web.Areas.AdminPanel.Pages.Manage
 
         public IList<IdentityRole> Roles { get; set; }
 
+        [BindProperty]
+        public string NewRole { get; set; }
         public async Task<IActionResult> OnGetAsync()
         {
+            NewRole = "";
             Roles = await _roleManager.Roles.ToListAsync();
             return Page();
         }
 
-        public async Task<IActionResult> AddRole(string roleName)
+        public async Task<IActionResult> OnPostAsync()
         {
-            if (roleName != null)
+            if (NewRole != null)
             {
-                await _roleManager.CreateAsync(new IdentityRole(roleName.Trim()));
+                await _roleManager.CreateAsync(new IdentityRole(NewRole.Trim()));
             }
             return RedirectToPage("Roles");
         }

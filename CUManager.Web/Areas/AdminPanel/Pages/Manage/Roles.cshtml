@@ -6,11 +6,11 @@
 }
 <h1>Roles</h1>
 <br />
-<form method="post" asp-page-handler="AddRole">
+<form method="post">
     <div class="input-group">
-        <input name="roleName" class="form-control w-25">
+        <input asp-for="NewRole" class="form-control w-25">
         <span class="input-group-btn">
-            <input type="submit" class="btn btn-info" value="Add New Role">
+            <input type="submit" class="btn btn-info" value="Add New Role" />
         </span>
     </div>
 </form>
@@ -28,7 +28,7 @@
             </th>
         </tr>
     </thead>
-    <tbody> 
+    <tbody>
         @foreach (var role in Model.Roles)
         {
             <tr>
