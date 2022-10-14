@@ -1,0 +1,95 @@
+﻿@page
+@model CUManager.Web.Areas.AdminPanel.Pages.Manage.ManagePermissionsModel
+@{
+    ViewData["Title"] = "Title";
+}
+<h1>Permissions</h1>
+<br />
+<form method="post" class="d-inline">
+    <div class="card">
+        <div id="viewAll" class="card-body table-responsive">
+            <input asp-for="@Model.PermissionModel.RoleId" type="hidden" />
+            <table class="table table-striped" id="permissionTable">
+                <thead>
+                    <tr>
+                        <th>Type</th>
+                        <th>Permission</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var permission in Model.AllPermissions)
+                    {
+                        <tr>
+                            <td>@permission.Type</td>
+                            <td>@permission.Value</td>
+                            <td>
+                                <input asp-for="@permission.Type"
+                                   type="hidden"
+                                   id="permissionType_@Model.AllPermissions.IndexOf(permission)" />
+                                <input asp-for="@permission.Value"
+                                   type="hidden"
+                                   id="permissionValue_@Model.AllPermissions.IndexOf(permission)" />
+                                <input asp-for="@permission.Selected"
+                                   class="form-check-input"
+                                   id="permissionSelected_@Model.AllPermissions.IndexOf(permission)" />
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        <div class="card-footer">
+            <button type="button" id="assignBtn" value="Update" class="btn btn-primary">Update</button>
+        </div>
+    </div>
+</form>
+
+<script>
+    $("#assignBtn").click(function () {
+        var roleId = $("#PermissionModel_RoleId").val();
+        var rowCount = $("#permissionTable tbody tr").length;
+        var RoleClaims = [];
+        for (var i = 0; i < rowCount; i++) {
+            var type = '#permissionType_' + i;
+            var value = '#permissionValue_' + i;
+            var permissionChecked = '#permissionSelected_' + i;
+            var isChecked = $(permissionChecked).is(":checked");
+            var RoleClaimsViewModel = {
+                Type: $(type).val(),
+                Value: $(value).val(),
+                Selected: isChecked
+            }
+            RoleClaims.push(RoleClaimsViewModel);
+        }
+
+        var PermissionViewModel = {
+            RoleId: roleId,
+            RoleClaims: RoleClaims
+        }
+
+        //console.log(PermissionViewModel);
+
+        $.ajax({
+            type: "POST",
+            dataType: "json",
+            url: '@Url.Page("ManagePermissions", "UpdatePermissions")',
+            headers: {
+                RequestVerificationToken: $('input:hidden[name="__RequestVerificationToken"]').val()
+            },
+            data: {
+                permissionModel: PermissionViewModel
+            },
+            success: function (data) {
+                //console.log(data);
+                if (data.isDone == true) {
+                    window.location.href = "/AdminPanel/UsersAndRoles/Roles/"
+                }
+                //if (data.isDone == false) {
+                //    alert(data.message);
+                //    window.location.href = "/Manage/UsersAndRoles/Users/"
+                //}
+            }
+        });
+    });
+</script>

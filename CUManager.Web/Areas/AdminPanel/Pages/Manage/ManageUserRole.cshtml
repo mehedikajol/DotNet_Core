@@ -1,0 +1,102 @@
+﻿@page
+@model CUManager.Web.Areas.AdminPanel.Pages.Manage.ManageUserRoleModel
+@{
+    ViewData["Title"] = "User Roles";
+}
+
+<form method="post">
+    <div class="card">
+        <div class="card-header">
+            <h2>Manage User Roles</h2>
+            Manage Roles for @Model.ManageUserRolesViewModel.UserId
+        </div>
+        <div id="viewAll" class="card-body table-responsive">
+            <input type="hidden" asp-for="@Model.ManageUserRolesViewModel.UserId" />
+            <table class="table table-striped" id="roleTable">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Role</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var role in Model.ManageUserRolesViewModel.UserRoles)
+                    {
+                        <tr>
+                            <td>@role.RoleId</td>
+                            <td>@role.RoleName</td>
+                            <td>
+
+                                <input type="hidden"
+                                   asp-for="@role.RoleId"
+                                   id="roleId_@Model.ManageUserRolesViewModel.UserRoles.IndexOf(role)" />
+
+                                <input type="hidden"
+                                   asp-for="@role.RoleName"
+                                   id="roleName_@Model.ManageUserRolesViewModel.UserRoles.IndexOf(role)" />
+
+                                <input asp-for="@role.Selected"
+                                   id="role_@Model.ManageUserRolesViewModel.UserRoles.IndexOf(role)" />
+
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        <div class="card-footer">
+            <button type="button" id="assignBtn" value="Update" class="btn btn-primary">Update</button>
+        </div>
+    </div>
+</form>
+
+<script>
+    $("#assignBtn").click(function () {
+        var userId = $("#ManageUserRolesViewModel_UserId").val();
+        var rowCount = $("#roleTable tbody tr").length;
+        var roles = [];
+        for (var i = 0; i < rowCount; i++) {
+            var roleId = '#roleId_' + i;
+            var roleName = '#roleName_' + i;
+            var roleChecked = '#role_' + i;
+            var isChecked = $(roleChecked).is(":checked");
+            var UserRolesViewModel = {
+                RoleId: $(roleId).val(),
+                RoleName: $(roleName).val(),
+                Selected: isChecked
+            }
+            roles.push(UserRolesViewModel);
+        }
+
+        var ManageUserRolesViewModel = {
+            UserId: userId,
+            UserRoles: roles
+        }
+
+        //console.log(ManageUserRolesViewModel);
+        
+        $.ajax({
+            type: "POST",
+            dataType: "json",
+            url: '@Url.Page("ManageUserRole", "AssignRoles")',
+            headers: {
+                RequestVerificationToken: $('input:hidden[name="__RequestVerificationToken"]').val()
+            },
+            data: {
+                Id: userId,
+                ManageUserRolesViewModel: ManageUserRolesViewModel
+            },
+            success: function (data) {
+                //console.log(data);
+                if(data.isDone == true){
+                    window.location.href = "/AdminPanel/Users/Index/"
+                }
+                if(data.isDone == false){
+                    alert(data.message);
+                    window.location.href = "/AdminPanel/Users/Index/"
+                }
+            }
+        });
+    });
+</script>
