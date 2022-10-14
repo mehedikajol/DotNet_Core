@@ -29,7 +29,7 @@ namespace CUManager.Web.Areas.AdminPanel.Pages.Manage
             {
                 await _roleManager.CreateAsync(new IdentityRole(roleName.Trim()));
             }
-            return RedirectToAction("Index");
+            return RedirectToPage("Roles");
         }
     }
 }
