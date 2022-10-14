@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CUManager.Constants", "CUMa
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CUManager.Data", "CUManager.Data\CUManager.Data.csproj", "{962D1194-ED5E-4141-9E82-95CA0494CBCC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CUManager.Web", "CUManager.Web\CUManager.Web.csproj", "{504B79D3-8D20-4DA4-9383-E4E7E2809786}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{962D1194-ED5E-4141-9E82-95CA0494CBCC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{962D1194-ED5E-4141-9E82-95CA0494CBCC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{962D1194-ED5E-4141-9E82-95CA0494CBCC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{504B79D3-8D20-4DA4-9383-E4E7E2809786}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{504B79D3-8D20-4DA4-9383-E4E7E2809786}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{504B79D3-8D20-4DA4-9383-E4E7E2809786}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{504B79D3-8D20-4DA4-9383-E4E7E2809786}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
