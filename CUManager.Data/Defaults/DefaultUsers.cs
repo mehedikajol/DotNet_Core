@@ -83,7 +83,7 @@ namespace CUManager.Data.Defaults
             IdentityRole role, string module)
         {
             var allClaims = await roleManager.GetClaimsAsync(role);
-            var allPermissions = Permissions.GeneratePermissionsForModule(module);
+            var allPermissions = Permissions.AllPermissions.GetPermissionList();
             foreach (var permission in allPermissions)
             {
                 if (!allClaims.Any(a => a.Type == "Permission" && a.Value == permission))

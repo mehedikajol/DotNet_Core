@@ -21,10 +21,10 @@ namespace CUManager.Data.Helpers
         }
         public static class AllPermissions
         {
-            public const string PostView = "Permissions.Posts.View";
-            public const string PostEdit = "Permissions.Posts.Edit";
-            public const string PostCreate = "Permissions.Posts.Create";
-            public const string PostDelete = "Permissions.Posts.Delete";
+            public const string PostView = "Permissions.Post.View";
+            public const string PostCreate = "Permissions.Post.Create";
+            public const string PostEdit = "Permissions.Post.Edit";
+            public const string PostDelete = "Permissions.Post.Delete";
 
             public static List<string> GetPermissionList()
             {

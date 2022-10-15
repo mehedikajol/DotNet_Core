@@ -32,7 +32,7 @@ namespace CUManager.Web.Areas.AdminPanel.Pages.Manage
             {
                 await _roleManager.CreateAsync(new IdentityRole(NewRole.Trim()));
             }
-            return RedirectToPage("Roles");
+            return RedirectToPage("./Roles");
         }
     }
 }

@@ -7,9 +7,12 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using CUManager.Data.Contexts;
 using CUManager.Data.Entities;
+using CUManager.Data.Helpers;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CUManager.Web.Areas.Contents.Pages.Posts
 {
+    [Authorize(Permissions.AllPermissions.PostCreate)]
     public class CreateModel : PageModel
     {
         private readonly CUManager.Data.Contexts.AppDbContext _context;
