@@ -59,9 +59,9 @@ namespace CUManager.Web
             // Cookie Configuration
             services.ConfigureApplicationCookie(options =>
             {
-                options.LoginPath = "";
-                options.LogoutPath = "";
-                options.AccessDeniedPath = "";
+                //options.LoginPath = "";
+                //options.LogoutPath = "";
+                //options.AccessDeniedPath = "";
             });
 
             services.AddRazorPages();
